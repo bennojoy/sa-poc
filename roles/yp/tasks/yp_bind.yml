@@ -1,0 +1,17 @@
+---
+# Configures the yp client process ypbind
+
+- name: Configure the domainname
+  template: src=../roles/yp/templates/etc/sysconfig/network.j2 dest=/etc/sysconfig/network
+
+- name: Install the packages
+  yum: name=${item} state=present
+  with_items: 
+   - ypbind
+   - yp-tools
+
+- name: Copy the configuration file
+  template: src=../roles/yp/templates/etc/yp.conf.j2 dest=/etc/yp.conf
+  notify: restart ypbind
+
+

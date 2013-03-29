@@ -1,0 +1,8 @@
+---
+#Global site deploying playbook
+
+- include: playbooks/common.yml
+#- include: playbooks/monitoring.yml
+- include: playbooks/nis.yml
+
+

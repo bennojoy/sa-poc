@@ -1,0 +1,28 @@
+---
+# This playbook setups the nis server and client
+
+- hosts: nisservers
+  user: root
+  vars:
+    schedule: '*/1 * * * *'
+    cron_user: root
+    logfile: /var/log/ansible-pull.log
+    workdir: /var/lib/ansible/local
+    repo_url: http://github.com/bennojoy/ansible-pull.git 
+
+
+  tasks:
+   - include: ../roles/yp/tasks/yp_serv.yml
+  
+  handlers:
+   - include: ../roles/yp/handlers/handlers.yml
+
+
+- hosts: nisclients
+  user: root
+  tasks:
+   - include: ../roles/yp/tasks/yp_bind.yml
+
+  handlers:
+   - include: ../roles/yp/handlers/handlers.yml
+

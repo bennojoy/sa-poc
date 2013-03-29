@@ -1,0 +1,7 @@
+---
+
+hosts:
+  localhost: 127.0.0.1
+  nisserver: 192.168.0.103
+  nisclient: 192.168.0.101
+  testmachine: 10.10.10.10

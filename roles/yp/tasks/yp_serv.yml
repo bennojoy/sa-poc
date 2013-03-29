@@ -1,0 +1,32 @@
+---
+# Configures the yp client process ypbind
+
+- name: configure the nis domainname
+  template: src=../roles/yp/templates/etc/sysconfig/network.j2 dest=/etc/sysconfig/network
+
+- name: Install the packages
+  yum: name=${item} state=present
+  with_items: 
+   - ypserv
+   - yp-tools
+   - ansible
+   - cronie
+
+- name: start the yp service
+  service: name=ypserv state=started enabled=yes
+
+- name: Set port for yp passwd
+  lineinfile: dest=/etc/sysconfig/yppasswdd regexp=YPPASSWDD_ARGS line='YPPASSWDD_ARGS="--port 850"' state=present
+
+- name: start the yp password service
+  service: name=yppasswdd state=started enabled=yes
+
+- name: Make the maps
+  command: chdir=/var/yp/ make
+
+- name: Create local directory for ansible-pull t work from
+  file: path=$workdir state=directory owner=root group=root mode=0751
+
+- name: Create crontab entry to clone/pull git repository      
+  template: src=../roles/yp/templates/etc/cron.d/ansible-pull.j2 dest=/etc/cron.d/ansible-pull owner=root group=root mode=0644
+  notify: restart crond

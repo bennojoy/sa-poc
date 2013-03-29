@@ -1,0 +1,8 @@
+[gangliaservers]
+nisserver
+
+[nisservers]
+nisserver
+
+[nisclients]
+nisclient

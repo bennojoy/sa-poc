@@ -1,0 +1,9 @@
+---
+users:
+ - name: nuser1
+   password: $1$benz$EyFVprH3H6QWAw9higQim1
+
+ - name: nuser2
+   password: $1$benz$EyFVprH3H6QWAw9higQim1
+   
+  

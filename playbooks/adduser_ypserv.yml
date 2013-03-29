@@ -1,0 +1,15 @@
+---
+
+- hosts: nisservers
+  user: root
+  vars_files:
+   - ../nis_vars/users
+  tasks:
+  
+    - name: Create the users
+      user: user=${item.name} password=${item.password}
+      with_items: ${users} 
+
+    - name: Create the Map
+      command: chdir=/var/yp make
+

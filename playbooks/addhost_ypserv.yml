@@ -1,0 +1,15 @@
+---
+
+- hosts: nisservers
+  user: root
+  vars_files:
+   - ../nis_vars/hosts
+  tasks:
+  
+    - name: Create the hosts file
+      template: src=../roles/yp/templates/etc/hosts.j2 dest=/etc/hosts
+
+    - name: Update the maps
+      command: chdir=/var/yp make 
+
+

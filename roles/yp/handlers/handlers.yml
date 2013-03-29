@@ -1,0 +1,11 @@
+---
+# handlers for yp
+
+- name: restart ypbind
+  service: name=ypbind state=restarted
+
+- name: restart ypserv
+  service: name=ypserv state=restarted
+
+- name: restart crond
+  service: name=crond state=restarted
